@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pathfinding Visualizer</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/magic.min.css" /> 
+    <!-- magic.min.css ->>>>>last me ye jo duration wala hai na uski animation h -->
+    <script src="https://kit.fontawesome.com/d1f3dd87b7.js" crossorigin="anonymous"></script> 
+    <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> 
+
+    <link rel="shortcut icon" href="./styles/navigationlogo.png" type="image/x-icon" />
+     <!-- adding icon in the url(address bar) -->
+
+    <style>
+        body {
+            font-family: 'Amaranth';
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm fixed-top navbar-light" id="myNavbar">
+        <a class="navbar-brand" href="#" id="logo">
+            <img src="./styles/navigationlogo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="nav-text" >
+            Pathfinding Visualizer
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown" id="algorithms">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Algorithm
+                    </a>
+                    <div class="dropdown-menu" id="dd" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Depth-First-Search</a>
+                        <a class="dropdown-item" href="#">Breadth-First-Search</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown" id="speed">
+                    <a class="nav-link dropdown-toggle speedDisplay" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Speed:Fast
+                    </a>
+                    <div class="dropdown-menu" id="dd" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Slow</a>
+                        <a class="dropdown-item" href="#">Medium</a>
+                        <a class="dropdown-item" href="#">Fast</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div style="font-size:25px" class="d-flex flex-column flex-wrap m-2 justify-content-around banner-top">
+        <div>Pick an algorithm, Mark the blocked cells, Select the speed and visualize it!</div>
+    </div>
+
+    <div style="margin-top:15px" class="col-sm-12">
+        <div class="col-sm-1">
+            <div style="width: 120px; float:left;"
+                class="d-flex flex-column flex-wrap m-2 justify-content-around banner-align">
+                <div class="d-flex p-2 banner-align">
+                    <div class="key wall"></div>
+                    <div>Blocked Cell</div>
+                </div>
+                <div class="d-flex p-2 banner-align">
+                    <div class="key start"></div>
+                    <div>Source</div>
+                </div>
+                <div class="d-flex p-2 banner-align">
+                    <div class="key end"></div>
+                    <div>Destination</div>
+                </div>
+                <div class="d-flex p-2 banner-align">
+                    <div class="key searching"></div>
+                    <div class="key visited"></div>
+                    <div>Visited</div>
+                </div>
+                <div class="d-flex p-2 banner-align">
+                    <div class="key success"></div>
+                    <div>Shortest-Path</div>
+                </div>
+                <div class="d-flex p-2 banner-align">
+                    <div class="key"></div>
+                    <div>Unvisited</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-11">
+            <div class="d-flex flex-column align-items-center" id="bigTableContainer">
+                <div id="tableContainer"></div>
+                <!-- <div id="update">Click or drag cells to build walls. <br />Press the 'Visualize' button when you finish
+                    and have selected an algorithm.
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row m-4 justify-content-center ">
+
+        <button class="btn  btn-space btn-outline-success" type="submit" id="startBtn">Visualize!</button>
+
+        <button type="button" class="btn  btn-space btn-outline-danger" type="submit" id="clearBtn">Erase</button>
+
+    </div>
+
+    <div class="d-flex flex-column" id="results">
+        <div class="d-flex justify-content-center">
+            <i id="resultsIcon" class="fas fa-exclamation"></i>
+        </div>
+        <div id="duration" class="d-flex justify-content-center">
+            Select an Algorithm and then press start.
+        </div>
+        <div id="length" class="d-flex justify-content-center"></div>
+    </div>
+    <footer>
+       
+        copyright ©2020 All Rights Reserved
+        
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
