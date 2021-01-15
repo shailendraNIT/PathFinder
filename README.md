@@ -1,4 +1,4 @@
-# PathFinder
+# [Pathfinder]("https://shailendranit.github.io/PathFinder/")
 
 This app helps to visualize the working of the most popular graph algorithms
 
